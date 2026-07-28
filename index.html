@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlRoot">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">مؤسسة ميدان الدفاع | MAIDAN-DEFENSE.COM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #006B5E;
+            --primary-dark: #004D43;
+            --primary-light: #008F7A;
+            --gold: #D4AF37;
+            --gold-light: #E8C84A;
+            --gold-dark: #B8962E;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --light: #f8f9fa;
+            --white: #ffffff;
+            --text: #333333;
+            --text-light: #666666;
+            --gradient-primary: linear-gradient(135deg, #006B5E 0%, #008F7A 100%);
+            --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #E8C84A 50%, #D4AF37 100%);
+            --shadow: 0 10px 40px rgba(0, 107, 94, 0.15);
+            --shadow-gold: 0 10px 40px rgba(212, 175, 55, 0.2);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', 'Inter', 'Montserrat', sans-serif;
+            background: var(--darker); color: var(--light); overflow-x: hidden; line-height: 1.8;
+        }
+        body[dir="ltr"] { font-family: 'Inter', 'Montserrat', 'Tajawal', sans-serif; }
+        body[dir="ltr"] .nav-logo-text { letter-spacing: 1px; }
+        body[dir="ltr"] .section-label { letter-spacing: 3px; }
+        body[dir="ltr"] .hero-subtitle { letter-spacing: 4px; }
+        body[dir="ltr"] .about-feature { border-right: none; border-left: 3px solid var(--primary); }
+        body[dir="ltr"] .client-item { border-right: none; border-left: 3px solid var(--primary); }
+        body[dir="ltr"] .project-card::after { right: auto; left: 0; }
+        body[dir="ltr"] .about-image::before { right: auto; left: -20px; }
+        body[dir="ltr"] .footer-links a:hover { padding-right: 0; padding-left: 5px; }
+        body[dir="ltr"] .client-item:hover { transform: translateX(5px); }
+        body[dir="ltr"] .nav-links a::after { right: auto; left: 0; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--darker); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+        .lang-switcher { display: flex; gap: 8px; align-items: center; }
+        .lang-btn {
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.6); padding: 6px 14px; border-radius: 8px;
+            font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; font-family: inherit;
+        }
+        .lang-btn:hover { background: rgba(255,255,255,0.15); color: var(--white); }
+        .lang-btn.active { background: var(--gold); color: var(--darker); border-color: var(--gold); }
+        .navbar { position: fixed; top: 0; width: 100%; z-index: 1000; padding: 15px 0; transition: all 0.4s ease; background: transparent; }
+        .navbar.scrolled { background: rgba(15, 15, 26, 0.95); backdrop-filter: blur(20px); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3); padding: 10px 0; }
+        .nav-container { max-width: 1400px; margin: 0 auto; padding: 0 30px; display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { display: flex; align-items: center; gap: 12px; }
+        .nav-logo img { height: 55px; width: auto; filter: drop-shadow(0 2px 8px rgba(0, 107, 94, 0.3)); }
+        .nav-logo-text { font-size: 1.3rem; font-weight: 800; color: var(--white); letter-spacing: 0.5px; }
+        .nav-logo-text span { color: var(--gold); }
+        .nav-links { display: flex; gap: 35px; list-style: none; }
+        .nav-links a { color: var(--white); text-decoration: none; font-weight: 500; font-size: 1rem; position: relative; padding: 5px 0; transition: color 0.3s ease; }
+        .nav-links a::after { content: ''; position: absolute; bottom: 0; right: 0; width: 0; height: 2px; background: var(--gold); transition: width 0.3s ease; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::after { width: 100%; }
+        .mobile-menu-btn { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; background: var(--darker); }
+        .hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at 20% 50%, rgba(0, 107, 94, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 80% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 50%); }
+        .hero-grid { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(0, 107, 94, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 107, 94, 0.03) 1px, transparent 1px); background-size: 60px 60px; }
+        .hero-content { position: relative; z-index: 2; text-align: center; max-width: 900px; padding: 0 30px; }
+        .hero-logo { width: 400px; max-width: 90vw; margin: 0 auto 40px; filter: drop-shadow(0 10px 30px rgba(0, 107, 94, 0.3)); animation: fadeInUp 1s ease; }
+        .hero-subtitle { font-size: 1.5rem; font-weight: 300; color: var(--gold); margin-bottom: 20px; letter-spacing: 3px; animation: fadeInUp 1s ease 0.2s both; }
+        .hero-title { font-size: 3.5rem; font-weight: 900; margin-bottom: 25px; line-height: 1.2; animation: fadeInUp 1s ease 0.4s both; }
+        .hero-title .highlight { background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-desc { font-size: 1.15rem; color: rgba(255, 255, 255, 0.7); max-width: 700px; margin: 0 auto 40px; line-height: 1.9; animation: fadeInUp 1s ease 0.6s both; }
+        .hero-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; animation: fadeInUp 1s ease 0.8s both; }
+        .btn { padding: 15px 40px; border-radius: 50px; font-size: 1rem; font-weight: 700; font-family: inherit; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; border: none; }
+        .btn-primary { background: var(--gradient-primary); color: var(--white); box-shadow: 0 8px 25px rgba(0, 107, 94, 0.4); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(0, 107, 94, 0.5); }
+        .btn-gold { background: transparent; color: var(--gold); border: 2px solid var(--gold); }
+        .btn-gold:hover { background: var(--gold); color: var(--darker); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3); }
+        .particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; pointer-events: none; }
+        .particle { position: absolute; width: 4px; height: 4px; background: var(--gold); border-radius: 50%; opacity: 0.5; animation: float 15s infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.5; } 90% { opacity: 0.5; } 100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .section { padding: 100px 0; position: relative; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-label { display: inline-block; padding: 8px 25px; background: rgba(0, 107, 94, 0.1); border: 1px solid rgba(0, 107, 94, 0.3); border-radius: 50px; color: var(--gold); font-size: 0.9rem; font-weight: 600; margin-bottom: 15px; letter-spacing: 2px; }
+        .section-title { font-size: 2.8rem; font-weight: 900; margin-bottom: 20px; }
+        .section-title .highlight { background: var(--gradient-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .section-desc { color: rgba(255, 255, 255, 0.6); max-width: 600px; margin: 0 auto; font-size: 1.1rem; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 30px; }
+        .about { background: var(--dark); }
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .about-image { position: relative; }
+        .about-image > div {
+            background: rgba(0, 107, 94, 0.08);
+            border: 2px solid rgba(212, 175, 55, 0.25);
+            border-radius: 20px;
+            padding: 50px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 420px;
+            transition: all 0.4s ease;
+        }
+        .about-image > div:hover {
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 20px 50px rgba(0, 107, 94, 0.15);
+            transform: translateY(-5px);
+        }
+        .about-image > div img {
+            width: 85%;
+            max-width: 320px;
+            filter: drop-shadow(0 10px 25px rgba(0, 107, 94, 0.25));
+            transition: transform 0.4s ease;
+        }
+        .about-image > div:hover img {
+            transform: scale(1.05);
+        }
+        .about-image img { width: 100%; border-radius: 20px; box-shadow: var(--shadow); }
+        .about-image::before { content: ''; position: absolute; top: -20px; right: -20px; width: 100%; height: 100%; border: 3px solid var(--gold); border-radius: 20px; z-index: -1; }
+        .about-content h3 { font-size: 2rem; font-weight: 800; margin-bottom: 20px; color: var(--gold); }
+        .about-content p { color: rgba(255, 255, 255, 0.7); margin-bottom: 20px; font-size: 1.05rem; line-height: 1.9; }
+        .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
+        .about-feature { display: flex; align-items: center; gap: 12px; padding: 15px; background: rgba(0, 107, 94, 0.08); border-radius: 12px; border-right: 3px solid var(--primary); }
+        .about-feature i { color: var(--gold); font-size: 1.2rem; }
+        .about-feature span { font-weight: 600; font-size: 0.95rem; }
+        .services { background: var(--darker); }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .service-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 20px; padding: 40px 30px; transition: all 0.4s ease; position: relative; overflow: hidden; }
+        .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: var(--gradient-gold); transform: scaleX(0); transition: transform 0.4s ease; }
+        .service-card:hover { transform: translateY(-10px); border-color: rgba(0, 107, 94, 0.3); box-shadow: var(--shadow); }
+        .service-card:hover::before { transform: scaleX(1); }
+        .service-icon { width: 70px; height: 70px; background: var(--gradient-primary); border-radius: 16px; display: flex; align-items: center; justify-content: center; margin-bottom: 25px; font-size: 1.8rem; color: var(--white); box-shadow: 0 8px 20px rgba(0, 107, 94, 0.3); }
+        .service-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 15px; color: var(--white); }
+        .service-card p { color: rgba(255, 255, 255, 0.6); font-size: 0.95rem; line-height: 1.8; }
+        .projects { background: var(--dark); }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
+        .project-card { background: rgba(255, 255, 255, 0.03); border-radius: 16px; padding: 30px; border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease; position: relative; overflow: hidden; }
+        .project-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .project-card::after { content: ''; position: absolute; top: 0; right: 0; width: 4px; height: 100%; background: var(--gradient-primary); opacity: 0; transition: opacity 0.3s ease; }
+        .project-card:hover::after { opacity: 1; }
+        .project-card i { color: var(--gold); font-size: 1.5rem; margin-bottom: 15px; }
+        .project-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 10px; }
+        .project-card p { color: rgba(255, 255, 255, 0.5); font-size: 0.9rem; }
+        .stats { background: var(--gradient-primary); padding: 80px 0; position: relative; overflow: hidden; }
+        .stats::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%); animation: rotate 20s linear infinite; }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; position: relative; z-index: 1; }
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 3.5rem; font-weight: 900; color: var(--gold); line-height: 1; margin-bottom: 10px; }
+        .stat-label { font-size: 1.1rem; color: rgba(255, 255, 255, 0.9); font-weight: 500; }
+        .partners { background: var(--darker); }
+        .partners-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 30px; align-items: center; }
+        .partner-item { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 16px; padding: 30px 20px; text-align: center; transition: all 0.3s ease; font-weight: 700; color: rgba(255, 255, 255, 0.7); font-size: 1.1rem; }
+        .partner-item:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); transform: translateY(-5px); color: var(--gold); }
+        .clients-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 40px; }
+        .client-item { display: flex; align-items: center; gap: 12px; padding: 20px; background: rgba(0, 107, 94, 0.08); border-radius: 12px; border-right: 3px solid var(--primary); transition: all 0.3s ease; }
+        .client-item:hover { background: rgba(0, 107, 94, 0.15); transform: translateX(-5px); }
+        .client-item i { color: var(--gold); font-size: 1.2rem; }
+        .client-item span { font-weight: 600; font-size: 0.95rem; }
+        .contact { background: var(--dark); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .contact-info h3 { font-size: 2rem; font-weight: 800; margin-bottom: 30px; color: var(--gold); }
+        .contact-item { display: flex; align-items: center; gap: 20px; margin-bottom: 25px; padding: 20px; background: rgba(255, 255, 255, 0.03); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.3s ease; }
+        .contact-item:hover { border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
+        .contact-icon { width: 50px; height: 50px; background: var(--gradient-primary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.2rem; flex-shrink: 0; }
+        .contact-item div h4 { font-size: 1rem; font-weight: 700; margin-bottom: 5px; }
+        .contact-item div p { color: rgba(255, 255, 255, 0.6); font-size: 0.95rem; }
+        .contact-form { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; padding: 40px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.95rem; }
+        .form-group input, .form-group textarea { width: 100%; padding: 15px 20px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; color: var(--white); font-family: inherit; font-size: 1rem; transition: all 0.3s ease; }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--gold); background: rgba(212, 175, 55, 0.05); }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .footer { background: var(--darker); border-top: 1px solid rgba(255, 255, 255, 0.05); padding: 60px 0 30px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+        .footer-brand img { height: 60px; margin-bottom: 20px; }
+        .footer-brand p { color: rgba(255, 255, 255, 0.5); line-height: 1.8; font-size: 0.95rem; }
+        .footer-links h4 { color: var(--gold); font-size: 1.1rem; font-weight: 700; margin-bottom: 20px; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 12px; }
+        .footer-links a { color: rgba(255, 255, 255, 0.5); text-decoration: none; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
+        .footer-links a:hover { color: var(--gold); padding-right: 5px; }
+        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .footer-bottom p { color: rgba(255, 255, 255, 0.4); font-size: 0.9rem; }
+        .footer-bottom .domain { color: var(--gold); font-weight: 700; }
+        .social-links { display: flex; gap: 15px; }
+        .social-links a { width: 40px; height: 40px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--white); transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .social-links a:hover { background: var(--gold); color: var(--darker); border-color: var(--gold); transform: translateY(-3px); }
+        .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+        @media (max-width: 992px) {
+            .about-grid, .contact-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .hero-title { font-size: 2.2rem; }
+            .hero-subtitle { font-size: 1.1rem; }
+            .section-title { font-size: 2rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+            .stat-number { font-size: 2.5rem; }
+            .about-features { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; text-align: center; }
+            .lang-switcher { gap: 4px; }
+            .lang-btn { padding: 5px 10px; font-size: 0.75rem; }
+        }
+        .loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--darker); z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 0.5s ease, visibility 0.5s ease; }
+        .loader.hidden { opacity: 0; visibility: hidden; }
+        .loader-content { text-align: center; }
+        .loader-logo { width: 150px; margin-bottom: 20px; animation: pulse 2s ease infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .loader-bar { width: 200px; height: 3px; background: rgba(255, 255, 255, 0.1); border-radius: 3px; overflow: hidden; margin: 0 auto; }
+        .loader-progress { height: 100%; background: var(--gradient-gold); border-radius: 3px; animation: load 2s ease forwards; }
+        @keyframes load { 0% { width: 0; } 100% { width: 100%; } }
+    </style>
+</head>
+<body dir="rtl">
+
+    <div class="loader" id="loader">
+        <div class="loader-content">
+            <img src="maidans_logo_transparent.png" alt="Maidan Defense" class="loader-logo">
+            <div class="loader-bar"><div class="loader-progress"></div></div>
+        </div>
+    </div>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="maidans_logo_transparent.png" alt="Maidan Defense">
+                <div class="nav-logo-text" data-i18n="logoText">ميدان الدفاع</div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" data-i18n="navHome">الرئيسية</a></li>
+                <li><a href="#about" data-i18n="navAbout">من نحن</a></li>
+                <li><a href="#services" data-i18n="navServices">خدماتنا</a></li>
+                <li><a href="#projects" data-i18n="navProjects">مشاريعنا</a></li>
+                <li><a href="#partners" data-i18n="navPartners">شركاؤنا</a></li>
+                <li><a href="#contact" data-i18n="navContact">تواصل معنا</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="setLanguage('ar')" data-lang="ar">AR</button>
+                <button class="lang-btn" onclick="setLanguage('en')" data-lang="en">EN</button>
+                <button class="lang-btn" onclick="setLanguage('fr')" data-lang="fr">FR</button>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="hero-bg"></div>
+        <div class="hero-grid"></div>
+        <div class="particles" id="particles"></div>
+        <div class="hero-content">
+            <img src="maidans_logo_transparent.png" alt="Maidan Defense" class="hero-logo">
+            <p class="hero-subtitle" data-i18n="heroSubtitle">حلول دفاعية وأمنية متكاملة</p>
+            <h1 class="hero-title">
+                <span class="highlight" data-i18n="heroTitleHighlight">مؤسسة ميدان الدفاع</span><br>
+                <span data-i18n="heroTitleRest">شريكك الموثوق في الدفاع والأمن</span>
+            </h1>
+            <p class="hero-desc" data-i18n="heroDesc">شركة رائدة مقرها الرياض - المملكة العربية السعودية، نقدم خدمات الاستشارات والتسويق والمبيعات والدعم اللوجستي المتكامل لعملائنا المحليين والدوليين في قطاعات الدفاع والأمن.</p>
+            <div class="hero-buttons">
+                <a href="#about" class="btn btn-primary" data-i18n="btnAbout"><i class="fas fa-arrow-left"></i> تعرف علينا</a>
+                <a href="#contact" class="btn btn-gold" data-i18n="btnContact"><i class="fas fa-envelope"></i> تواصل معنا</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label" data-i18n="aboutLabel">من نحن</span>
+                <h2 class="section-title"><span data-i18n="aboutTitle1">شريكك الموثوق في </span><span class="highlight" data-i18n="aboutTitle2">الدفاع والأمن</span></h2>
+                <p class="section-desc" data-i18n="aboutDesc">نقدم حلولاً متكاملة تلبي احتياجات قطاع الدفاع والأمن</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-image animate-on-scroll">
+                    <div>
+                        <img src="maidans_logo_transparent.png" alt="Maidan Defense">
+                    </div>
+                </div>
+                <div class="about-content animate-on-scroll">
+                    <h3 data-i18n="aboutCompanyName">مؤسسة ميدان الدفاع</h3>
+                    <p data-i18n="aboutPara1">مؤسسة ميدان الدفاع، مقرها الرياض - المملكة العربية السعودية، تقدم خدمات استشارية وتسويقية وبيعية ودعم لوجستي متكامل لعملائنا المحليين والدوليين. ندير أنشطة المشتريات للجهات الحكومية الرئيسية بما في ذلك وزارة الدفاع ووزارة الداخلية والحرس الوطني السعودي ورئاسة أمن الدولة.</p>
+                    <p data-i18n="aboutPara2">نسعى لتجاوز توقعات كل عميل من خلال تقديم خدمة عملاء متميزة ومرونة عالية وقيمة أكبر، مما يؤدي إلى تحسين وظائف الأنظمة وزيادة كفاءة التشغيل.</p>
+                    <div class="about-features">
+                        <div class="about-feature"><i class="fas fa-network-wired"></i><span data-i18n="feat1">شبكة حكومية قوية</span></div>
+                        <div class="about-feature"><i class="fas fa-brain"></i><span data-i18n="feat2">معرفة عميقة بالمشتريات</span></div>
+                        <div class="about-feature"><i class="fas fa-handshake"></i><span data-i18n="feat3">تنفيذ عقود مثبت</span></div>
+                        <div class="about-feature"><i class="fas fa-shield-alt"></i><span data-i18n="feat4">ممارسات أخلاقية وشفافة</span></div>
+                        <div class="about-feature"><i class="fas fa-chart-line"></i><span data-i18n="feat5">شراكات استراتيجية طويلة</span></div>
+                        <div class="about-feature"><i class="fas fa-award"></i><span data-i18n="feat6">جودة عالمية</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section services" id="services">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label" data-i18n="servicesLabel">خدماتنا</span>
+                <h2 class="section-title"><span data-i18n="servicesTitle1">حلول متكاملة </span><span class="highlight" data-i18n="servicesTitle2">تلبي احتياجاتك</span></h2>
+                <p class="section-desc" data-i18n="servicesDesc">نقدم مجموعة شاملة من الخدمات المتخصصة في قطاع الدفاع والأمن</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card animate-on-scroll"><div class="service-icon"><i class="fas fa-lightbulb"></i></div><h3 data-i18n="svc1Title">الاستشارات</h3><p data-i18n="svc1Desc">تقديم المشورة بشأن إجراءات المشتريات الحكومية وعمليات اتخاذ القرار.</p></div>
+                <div class="service-card animate-on-scroll"><div class="service-icon"><i class="fas fa-chart-bar"></i></div><h3 data-i18n="svc2Title">التسويق وتطوير الأعمال</h3><p data-i18n="svc2Desc">استراتيجيات التسويق وتطوير الأعمال وتحليل السوق.</p></div>
+                <div class="service-card animate-on-scroll"><div class="service-icon"><i class="fas fa-users"></i></div><h3 data-i18n="svc3Title">الموارد البشرية</h3><p data-i18n="svc3Desc">توفير جميع احتياجات الموارد البشرية من التوظيف والتأمين والإقامة.</p></div>
+                <div class="service-card animate-on-scroll"><div class="service-icon"><i class="fas fa-landmark"></i></div><h3 data-i18n="svc4Title">العلاقات الحكومية</h3><p data-i18n="svc4Desc">خدمات المتابعة مع جميع الجهات الحكومية والوزارات والتراخيص.</p></div>
+                <div class="service-card animate-on-scroll"><div class="service-icon"><i class="fas fa-car"></i></div><h3 data-i18n="svc5Title">النقل</h3><p data-i18n="svc5Desc">نقل مخصص، تأجير المركبات، خدمة صيانة على مدار 24 ساعة.</p></div>
+                <div class="service-card animate-on-scroll"><div class="service-icon"><i class="fas fa-plane"></i></div><h3 data-i18n="svc6Title">خدمات السفر</h3><p data-i18n="svc6Desc">تخطيط الرحلات، حجز التذاكر، خدمات المطار للشخصيات المهمة.</p></div>
+                <div class="service-card animate-on-scroll"><div class="service-icon"><i class="fas fa-building"></i></div><h3 data-i18n="svc7Title">الدعم المكتبي واللوجستي</h3><p data-i18n="svc7Desc">تأجير المكاتب، الإعداد، الدعم التقني، والاتصالات.</p></div>
+                <div class="service-card animate-on-scroll"><div class="service-icon"><i class="fas fa-language"></i></div><h3 data-i18n="svc8Title">الترجمة</h3><p data-i18n="svc8Desc">ترجمة الكتيبات التقنية والعروض بدقة المصطلحات.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item"><div class="stat-number">15</div><div class="stat-label" data-i18n="stat1">شريك استراتيجي</div></div>
+                <div class="stat-item"><div class="stat-number">50+</div><div class="stat-label" data-i18n="stat2">مشروع منفذ</div></div>
+                <div class="stat-item"><div class="stat-number">8</div><div class="stat-label" data-i18n="stat3">عميل حكومي</div></div>
+                <div class="stat-item"><div class="stat-number">100%</div><div class="stat-label" data-i18n="stat4">نسبة الرضا</div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section projects" id="projects">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label" data-i18n="projectsLabel">مشاريعنا</span>
+                <h2 class="section-title"><span data-i18n="projectsTitle1">سجل حافل </span><span class="highlight" data-i18n="projectsTitle2">بتنفيذ المشاريع</span></h2>
+                <p class="section-desc" data-i18n="projectsDesc">نفخر بإنجاز مشاريع ناجحة في قطاع الدفاع والأمن</p>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card animate-on-scroll"><i class="fas fa-cog"></i><h4 data-i18n="proj1Title">قطع غيار ودعم CLS لأنظمة الطائرات بدون طيار</h4><p data-i18n="proj1Desc">توريد قطع الغيار والدعم الفني لأنظمة الطائرات بدون طيار</p></div>
+                <div class="project-card animate-on-scroll"><i class="fas fa-plane-up"></i><h4 data-i18n="proj2Title">تأمين 91 منظومة طائرة بدون طيار بمجموع يزيد عن 270 طائرة</h4><p data-i18n="proj2Desc">توريد وتدريب على أنظمة الطائرات بدون طيار المتقدمة</p></div>
+                <div class="project-card animate-on-scroll"><i class="fas fa-dumbbell"></i><h4 data-i18n="proj3Title">توريد معدات تدريب تكتيكي للقوات البحرية</h4><p data-i18n="proj3Desc">معدات تدريب متخصصة للعمليات البحرية</p></div>
+                <div class="project-card animate-on-scroll"><i class="fas fa-search"></i><h4 data-i18n="proj4Title">تركيب كاشفات المعادن والأسلحة في جامعة نجران</h4><p data-i18n="proj4Desc">أنظمة كشف متقدمة للأمن الجامعي</p></div>
+                <div class="project-card animate-on-scroll"><i class="fas fa-door-open"></i><h4 data-i18n="proj5Title">بوابات تفتيش أمنية للدفاع الجوي</h4><p data-i18n="proj5Desc">بوابات أمنية متطورة للمواقع الحساسة</p></div>
+                <div class="project-card animate-on-scroll"><i class="fas fa-shield-halved"></i><h4 data-i18n="proj6Title">تجهيزات تكتيكية واقية للقوات البحرية</h4><p data-i18n="proj6Desc">معدات واقية متخصصة للعمليات العسكرية</p></div>
+                <div class="project-card animate-on-scroll"><i class="fas fa-shield-dog"></i><h4 data-i18n="proj7Title">احتياجات الدوريات الأمنية لوزارة الحرس الوطني</h4><p data-i18n="proj7Desc">تجهيزات متكاملة لعمليات الدوريات</p></div>
+                <div class="project-card animate-on-scroll"><i class="fas fa-user-shield"></i><h4 data-i18n="proj8Title">أجهزة تفتيش شخصية لفروع الدفاع الجوي</h4><p data-i18n="proj8Desc">أجهزة كشف متقدمة للأفراد</p></div>
+                <div class="project-card animate-on-scroll"><i class="fas fa-building-shield"></i><h4 data-i18n="proj9Title">معدات أمنية للدفاع الجوي</h4><p data-i18n="proj9Desc">حلول أمنية متكاملة للمواقع العسكرية</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section partners" id="partners">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label" data-i18n="partnersLabel">شركاؤنا</span>
+                <h2 class="section-title"><span data-i18n="partnersTitle1">نفتخر بالشراكة </span><span class="highlight" data-i18n="partnersTitle2">مع كبرى الشركات العالمية</span></h2>
+            </div>
+            <div class="partners-grid animate-on-scroll">
+                <div class="partner-item">GT</div>
+                <div class="partner-item">Safeagle</div>
+                <div class="partner-item">TLD</div>
+                <div class="partner-item">HII</div>
+                <div class="partner-item">DEEKON</div>
+                <div class="partner-item">SHARK</div>
+                <div class="partner-item">HOLOGATE</div>
+                <div class="partner-item">HERTZ</div>
+            </div>
+            <div class="section-header animate-on-scroll" style="margin-top: 80px;">
+                <span class="section-label" data-i18n="clientsLabel">عملاؤنا الحكوميون</span>
+                <h2 class="section-title"><span data-i18n="clientsTitle1">نخدم </span><span class="highlight" data-i18n="clientsTitle2">الجهات الحكومية الرائدة</span></h2>
+                <p class="section-desc" data-i18n="clientsDesc">في المملكة العربية السعودية</p>
+            </div>
+            <div class="clients-grid animate-on-scroll">
+                <div class="client-item"><i class="fas fa-shield-alt"></i><span data-i18n="client1">وزارة الدفاع</span></div>
+                <div class="client-item"><i class="fas fa-building"></i><span data-i18n="client2">وزارة الداخلية</span></div>
+                <div class="client-item"><i class="fas fa-flag"></i><span data-i18n="client3">وزارة الحرس الوطني</span></div>
+                <div class="client-item"><i class="fas fa-crown"></i><span data-i18n="client4">رئاسة الحرس الملكي</span></div>
+                <div class="client-item"><i class="fas fa-running"></i><span data-i18n="client5">وزارة الرياضة</span></div>
+                <div class="client-item"><i class="fas fa-graduation-cap"></i><span data-i18n="client6">وزارة التعليم</span></div>
+                <div class="client-item"><i class="fas fa-heartbeat"></i><span data-i18n="client7">وزارة الصحة</span></div>
+                <div class="client-item"><i class="fas fa-lock"></i><span data-i18n="client8">رئاسة أمن الدولة</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="section-label" data-i18n="contactLabel">تواصل معنا</span>
+                <h2 class="section-title"><span data-i18n="contactTitle1">فريقنا جاهز </span><span class="highlight" data-i18n="contactTitle2">لتحقيق أهدافك</span></h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info animate-on-scroll">
+                    <h3 data-i18n="contactInfoTitle">معلومات التواصل</h3>
+                    <div class="contact-item"><div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div><div><h4 data-i18n="contactAddress">العنوان</h4><p data-i18n="contactAddressVal">الرياض - المملكة العربية السعودية</p></div></div>
+                    <div class="contact-item"><div class="contact-icon"><i class="fas fa-envelope"></i></div><div><h4 data-i18n="contactEmail">البريد الإلكتروني</h4><p>info@maidans-defense.com</p></div></div>
+                    <div class="contact-item"><div class="contact-icon"><i class="fas fa-globe"></i></div><div><h4 data-i18n="contactWebsite">الموقع الإلكتروني</h4><p>MAIDAN-DEFENSE.COM</p></div></div>
+                </div>
+                <div class="contact-form animate-on-scroll">
+                    <form>
+                        <div class="form-group"><label data-i18n="formName">الاسم الكامل</label><input type="text" data-i18n-placeholder="formNamePh" placeholder="أدخل اسمك الكامل"></div>
+                        <div class="form-group"><label data-i18n="formEmail">البريد الإلكتروني</label><input type="email" data-i18n-placeholder="formEmailPh" placeholder="أدخل بريدك الإلكتروني"></div>
+                        <div class="form-group"><label data-i18n="formSubject">الموضوع</label><input type="text" data-i18n-placeholder="formSubjectPh" placeholder="موضوع الرسالة"></div>
+                        <div class="form-group"><label data-i18n="formMessage">الرسالة</label><textarea data-i18n-placeholder="formMessagePh" placeholder="اكتب رسالتك هنا..."></textarea></div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;" data-i18n="formSubmit"><i class="fas fa-paper-plane"></i> إرسال الرسالة</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="maidans_logo_transparent.png" alt="Maidan Defense">
+                    <p data-i18n="footerDesc">مؤسسة ميدان الدفاع - شريكك الموثوق في قطاع الدفاع والأمن. نقدم حلولاً متكاملة ومبتكرة لعملائنا الحكوميين والدوليين.</p>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="footerQuickLinks">روابط سريعة</h4>
+                    <ul>
+                        <li><a href="#home" data-i18n="footerHome"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+                        <li><a href="#about" data-i18n="footerAbout"><i class="fas fa-chevron-left"></i> من نحن</a></li>
+                        <li><a href="#services" data-i18n="footerServices"><i class="fas fa-chevron-left"></i> خدماتنا</a></li>
+                        <li><a href="#projects" data-i18n="footerProjects"><i class="fas fa-chevron-left"></i> مشاريعنا</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="footerOurServices">خدماتنا</h4>
+                    <ul>
+                        <li><a href="#" data-i18n="footerSvc1"><i class="fas fa-chevron-left"></i> الاستشارات</a></li>
+                        <li><a href="#" data-i18n="footerSvc2"><i class="fas fa-chevron-left"></i> التسويق</a></li>
+                        <li><a href="#" data-i18n="footerSvc3"><i class="fas fa-chevron-left"></i> الموارد البشرية</a></li>
+                        <li><a href="#" data-i18n="footerSvc4"><i class="fas fa-chevron-left"></i> الدعم اللوجستي</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 data-i18n="footerContactUs">تواصل معنا</h4>
+                    <ul>
+                        <li><a href="mailto:info@maidans-defense.com"><i class="fas fa-envelope"></i> info@maidans-defense.com</a></li>
+                        <li><a href="#"><i class="fas fa-globe"></i> MAIDAN-DEFENSE.COM</a></li>
+                        <li><a href="#" data-i18n="footerLocation"><i class="fas fa-map-marker-alt"></i> الرياض، السعودية</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-i18n="footerCopyright">جميع الحقوق محفوظة &copy; 2024 <span class="domain">MAIDAN-DEFENSE.COM</span></p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const translations = {
+            ar: {
+                pageTitle: "مؤسسة ميدان الدفاع | MAIDAN-DEFENSE.COM",
+                logoText: "ميدان الدفاع",
+                navHome: "الرئيسية", navAbout: "من نحن", navServices: "خدماتنا", navProjects: "مشاريعنا", navPartners: "شركاؤنا", navContact: "تواصل معنا",
+                heroSubtitle: "حلول دفاعية وأمنية متكاملة",
+                heroTitleHighlight: "مؤسسة ميدان الدفاع",
+                heroTitleRest: "شريكك الموثوق في الدفاع والأمن",
+                heroDesc: "شركة رائدة مقرها الرياض - المملكة العربية السعودية، نقدم خدمات الاستشارات والتسويق والمبيعات والدعم اللوجستي المتكامل لعملائنا المحليين والدوليين في قطاعات الدفاع والأمن.",
+                btnAbout: "تعرف علينا", btnContact: "تواصل معنا",
+                aboutLabel: "من نحن", aboutTitle1: "شريكك الموثوق في ", aboutTitle2: "الدفاع والأمن", aboutDesc: "نقدم حلولاً متكاملة تلبي احتياجات قطاع الدفاع والأمن",
+                aboutCompanyName: "مؤسسة ميدان الدفاع",
+                aboutPara1: "مؤسسة ميدان الدفاع، مقرها الرياض - المملكة العربية السعودية، تقدم خدمات استشارية وتسويقية وبيعية ودعم لوجستي متكامل لعملائنا المحليين والدوليين. ندير أنشطة المشتريات للجهات الحكومية الرئيسية بما في ذلك وزارة الدفاع ووزارة الداخلية والحرس الوطني السعودي ورئاسة أمن الدولة.",
+                aboutPara2: "نسعى لتجاوز توقعات كل عميل من خلال تقديم خدمة عملاء متميزة ومرونة عالية وقيمة أكبر، مما يؤدي إلى تحسين وظائف الأنظمة وزيادة كفاءة التشغيل.",
+                feat1: "شبكة حكومية قوية", feat2: "معرفة عميقة بالمشتريات", feat3: "تنفيذ عقود مثبت", feat4: "ممارسات أخلاقية وشفافة", feat5: "شراكات استراتيجية طويلة", feat6: "جودة عالمية",
+                servicesLabel: "خدماتنا", servicesTitle1: "حلول متكاملة ", servicesTitle2: "تلبي احتياجاتك", servicesDesc: "نقدم مجموعة شاملة من الخدمات المتخصصة في قطاع الدفاع والأمن",
+                svc1Title: "الاستشارات", svc1Desc: "تقديم المشورة بشأن إجراءات المشتريات الحكومية وعمليات اتخاذ القرار.",
+                svc2Title: "التسويق وتطوير الأعمال", svc2Desc: "استراتيجيات التسويق وتطوير الأعمال وتحليل السوق.",
+                svc3Title: "الموارد البشرية", svc3Desc: "توفير جميع احتياجات الموارد البشرية من التوظيف والتأمين والإقامة.",
+                svc4Title: "العلاقات الحكومية", svc4Desc: "خدمات المتابعة مع جميع الجهات الحكومية والوزارات والتراخيص.",
+                svc5Title: "النقل", svc5Desc: "نقل مخصص، تأجير المركبات، خدمة صيانة على مدار 24 ساعة.",
+                svc6Title: "خدمات السفر", svc6Desc: "تخطيط الرحلات، حجز التذاكر، خدمات المطار للشخصيات المهمة.",
+                svc7Title: "الدعم المكتبي واللوجستي", svc7Desc: "تأجير المكاتب، الإعداد، الدعم التقني، والاتصالات.",
+                svc8Title: "الترجمة", svc8Desc: "ترجمة الكتيبات التقنية والعروض بدقة المصطلحات.",
+                stat1: "شريك استراتيجي", stat2: "مشروع منفذ", stat3: "عميل حكومي", stat4: "نسبة الرضا",
+                projectsLabel: "مشاريعنا", projectsTitle1: "سجل حافل ", projectsTitle2: "بتنفيذ المشاريع", projectsDesc: "نفخر بإنجاز مشاريع ناجحة في قطاع الدفاع والأمن",
+                proj1Title: "قطع غيار ودعم CLS لأنظمة الطائرات بدون طيار", proj1Desc: "توريد قطع الغيار والدعم الفني لأنظمة الطائرات بدون طيار",
+                proj2Title: "تأمين 91 منظومة طائرة بدون طيار بمجموع يزيد عن 270 طائرة", proj2Desc: "توريد وتدريب على أنظمة الطائرات بدون طيار المتقدمة",
+                proj3Title: "توريد معدات تدريب تكتيكي للقوات البحرية", proj3Desc: "معدات تدريب متخصصة للعمليات البحرية",
+                proj4Title: "تركيب كاشفات المعادن والأسلحة في جامعة نجران", proj4Desc: "أنظمة كشف متقدمة للأمن الجامعي",
+                proj5Title: "بوابات تفتيش أمنية للدفاع الجوي", proj5Desc: "بوابات أمنية متطورة للمواقع الحساسة",
+                proj6Title: "تجهيزات تكتيكية واقية للقوات البحرية", proj6Desc: "معدات واقية متخصصة للعمليات العسكرية",
+                proj7Title: "احتياجات الدوريات الأمنية لوزارة الحرس الوطني", proj7Desc: "تجهيزات متكاملة لعمليات الدوريات",
+                proj8Title: "أجهزة تفتيش شخصية لفروع الدفاع الجوي", proj8Desc: "أجهزة كشف متقدمة للأفراد",
+                proj9Title: "معدات أمنية للدفاع الجوي", proj9Desc: "حلول أمنية متكاملة للمواقع العسكرية",
+                partnersLabel: "شركاؤنا", partnersTitle1: "نفتخر بالشراكة ", partnersTitle2: "مع كبرى الشركات العالمية",
+                clientsLabel: "عملاؤنا الحكوميون", clientsTitle1: "نخدم ", clientsTitle2: "الجهات الحكومية الرائدة", clientsDesc: "في المملكة العربية السعودية",
+                client1: "وزارة الدفاع", client2: "وزارة الداخلية", client3: "وزارة الحرس الوطني", client4: "رئاسة الحرس الملكي",
+                client5: "وزارة الرياضة", client6: "وزارة التعليم", client7: "وزارة الصحة", client8: "رئاسة أمن الدولة",
+                contactLabel: "تواصل معنا", contactTitle1: "فريقنا جاهز ", contactTitle2: "لتحقيق أهدافك",
+                contactInfoTitle: "معلومات التواصل", contactAddress: "العنوان", contactAddressVal: "الرياض - المملكة العربية السعودية",
+                contactEmail: "البريد الإلكتروني", contactWebsite: "الموقع الإلكتروني",
+                formName: "الاسم الكامل", formNamePh: "أدخل اسمك الكامل", formEmail: "البريد الإلكتروني", formEmailPh: "أدخل بريدك الإلكتروني",
+                formSubject: "الموضوع", formSubjectPh: "موضوع الرسالة", formMessage: "الرسالة", formMessagePh: "اكتب رسالتك هنا...", formSubmit: "إرسال الرسالة",
+                footerDesc: "مؤسسة ميدان الدفاع - شريكك الموثوق في قطاع الدفاع والأمن. نقدم حلولاً متكاملة ومبتكرة لعملائنا الحكوميين والدوليين.",
+                footerQuickLinks: "روابط سريعة", footerHome: "الرئيسية", footerAbout: "من نحن", footerServices: "خدماتنا", footerProjects: "مشاريعنا",
+                footerOurServices: "خدماتنا", footerSvc1: "الاستشارات", footerSvc2: "التسويق", footerSvc3: "الموارد البشرية", footerSvc4: "الدعم اللوجستي",
+                footerContactUs: "تواصل معنا", footerLocation: "الرياض، السعودية",
+                footerCopyright: "جميع الحقوق محفوظة &copy; 2024 <span class='domain'>MAIDAN-DEFENSE.COM</span>"
+            },
+            en: {
+                pageTitle: "Maidan Defense Establishment | MAIDAN-DEFENSE.COM",
+                logoText: "Maidan Defense",
+                navHome: "Home", navAbout: "About Us", navServices: "Services", navProjects: "Projects", navPartners: "Partners", navContact: "Contact Us",
+                heroSubtitle: "Integrated Defense & Security Solutions",
+                heroTitleHighlight: "Maidan Defense Establishment",
+                heroTitleRest: "Your Trusted Partner in Defense & Security",
+                heroDesc: "A leading company based in Riyadh - Saudi Arabia, providing consulting, marketing, sales, and integrated logistics support services for our local and international clients in the defense and security sectors.",
+                btnAbout: "Learn More", btnContact: "Contact Us",
+                aboutLabel: "About Us", aboutTitle1: "Your Trusted Partner in ", aboutTitle2: "Defense & Security", aboutDesc: "We provide comprehensive solutions that meet the needs of the defense and security sector",
+                aboutCompanyName: "Maidan Defense Establishment",
+                aboutPara1: "Maidan Defense Establishment, headquartered in Riyadh - Saudi Arabia, provides superior consulting, marketing, sales, and integrated logistics support services for our local and international clients. We manage procurement activities for major government entities including the Ministry of Defense, Ministry of Interior, Saudi Arabian National Guards, and Presidency of State Security.",
+                aboutPara2: "We strive to exceed the expectations of every client by offering outstanding customer service, increased flexibility, and greater value, thus optimizing system functionality and improving operational efficiency.",
+                feat1: "Strong Government Network", feat2: "Deep Procurement Knowledge", feat3: "Proven Contract Execution", feat4: "Ethical & Transparent Practices", feat5: "Long-Term Strategic Partnerships", feat6: "Global Quality Standards",
+                servicesLabel: "Our Services", servicesTitle1: "Comprehensive Solutions ", servicesTitle2: "to Meet Your Needs", servicesDesc: "We offer a full range of specialized services in the defense and security sector",
+                svc1Title: "Consulting", svc1Desc: "Advising on government procurement procedures and decision-making processes.",
+                svc2Title: "Marketing & Business Development", svc2Desc: "Marketing strategies, business development, and market analysis.",
+                svc3Title: "Human Resources", svc3Desc: "Providing all HR needs from recruitment, insurance, and accommodation.",
+                svc4Title: "Government Relations", svc4Desc: "Follow-up services with all government agencies, ministries, and licensing.",
+                svc5Title: "Transportation", svc5Desc: "Personalized transportation, vehicle leasing, 24-hour maintenance service.",
+                svc6Title: "Travel Services", svc6Desc: "Flight planning, ticket booking, VIP airport services.",
+                svc7Title: "Office & Logistics Support", svc7Desc: "Office space rental, setup, IT support, and communications.",
+                svc8Title: "Translation", svc8Desc: "Translation of technical manuals and proposals with terminology accuracy.",
+                stat1: "Strategic Partners", stat2: "Projects Completed", stat3: "Government Clients", stat4: "Satisfaction Rate",
+                projectsLabel: "Our Projects", projectsTitle1: "A Proven Track Record ", projectsTitle2: "of Successful Execution", projectsDesc: "We are proud of our successful projects in the defense and security sector",
+                proj1Title: "Spare Parts & CLS Support for UAV Systems", proj1Desc: "Supply of spare parts and technical support for unmanned aerial vehicle systems",
+                proj2Title: "Securing 91 UAV Systems with Over 270 Aircraft", proj2Desc: "Supply and training on advanced unmanned aerial vehicle systems",
+                proj3Title: "Tactical Training Equipment for Naval Forces", proj3Desc: "Specialized training equipment for naval operations",
+                proj4Title: "Metal & Weapons Detectors at Najran University", proj4Desc: "Advanced detection systems for campus security",
+                proj5Title: "Security Gates for Air Defense", proj5Desc: "Advanced security gates for sensitive sites",
+                proj6Title: "Protective Tactical Equipment for Naval Forces", proj6Desc: "Specialized protective equipment for military operations",
+                proj7Title: "Security Patrol Requirements for National Guard", proj7Desc: "Complete equipment for patrol operations",
+                proj8Title: "Personal Inspection Devices for Air Defense", proj8Desc: "Advanced detection devices for personnel",
+                proj9Title: "Security Equipment for Air Defense", proj9Desc: "Comprehensive security solutions for military sites",
+                partnersLabel: "Our Partners", partnersTitle1: "Proud to Partner ", partnersTitle2: "with Leading Global Companies",
+                clientsLabel: "Our Government Clients", clientsTitle1: "Serving ", clientsTitle2: "Leading Government Entities", clientsDesc: "In the Kingdom of Saudi Arabia",
+                client1: "Ministry of Defense", client2: "Ministry of Interior", client3: "Ministry of National Guard", client4: "Royal Guard Presidency",
+                client5: "Ministry of Sports", client6: "Ministry of Education", client7: "Ministry of Health", client8: "State Security Presidency",
+                contactLabel: "Contact Us", contactTitle1: "Our Team is Ready ", contactTitle2: "to Help You Achieve Your Goals",
+                contactInfoTitle: "Contact Information", contactAddress: "Address", contactAddressVal: "Riyadh - Kingdom of Saudi Arabia",
+                contactEmail: "Email", contactWebsite: "Website",
+                formName: "Full Name", formNamePh: "Enter your full name", formEmail: "Email", formEmailPh: "Enter your email address",
+                formSubject: "Subject", formSubjectPh: "Message subject", formMessage: "Message", formMessagePh: "Write your message here...", formSubmit: "Send Message",
+                footerDesc: "Maidan Defense Establishment - Your trusted partner in the defense and security sector. We provide comprehensive and innovative solutions for our government and international clients.",
+                footerQuickLinks: "Quick Links", footerHome: "Home", footerAbout: "About Us", footerServices: "Services", footerProjects: "Projects",
+                footerOurServices: "Our Services", footerSvc1: "Consulting", footerSvc2: "Marketing", footerSvc3: "Human Resources", footerSvc4: "Logistics Support",
+                footerContactUs: "Contact Us", footerLocation: "Riyadh, Saudi Arabia",
+                footerCopyright: "All Rights Reserved &copy; 2024 <span class='domain'>MAIDAN-DEFENSE.COM</span>"
+            },
+            fr: {
+                pageTitle: "Établissement Maidan Defense | MAIDAN-DEFENSE.COM",
+                logoText: "Maidan Defense",
+                navHome: "Accueil", navAbout: "À Propos", navServices: "Services", navProjects: "Projets", navPartners: "Partenaires", navContact: "Contact",
+                heroSubtitle: "Solutions Intégrées de Défense et de Sécurité",
+                heroTitleHighlight: "Établissement Maidan Defense",
+                heroTitleRest: "Votre Partenaire de Confiance en Défense et Sécurité",
+                heroDesc: "Une entreprise de premier plan basée à Riyad - Arabie Saoudite, fournissant des services de conseil, de marketing, de vente et de support logistique intégré pour nos clients locaux et internationaux dans les secteurs de la défense et de la sécurité.",
+                btnAbout: "En Savoir Plus", btnContact: "Contactez-Nous",
+                aboutLabel: "À Propos", aboutTitle1: "Votre Partenaire de Confiance en ", aboutTitle2: "Défense et Sécurité", aboutDesc: "Nous fournissons des solutions complètes qui répondent aux besoins du secteur de la défense et de la sécurité",
+                aboutCompanyName: "Établissement Maidan Defense",
+                aboutPara1: "L'Établissement Maidan Defense, dont le siège est à Riyad - Arabie Saoudite, fournit des services de conseil, de marketing, de vente et de support logistique intégré supérieurs pour nos clients locaux et internationaux. Nous gérons les activités d'achat pour les principales entités gouvernementales, notamment le Ministère de la Défense, le Ministère de l'Intérieur, la Garde Nationale Saoudienne et la Présidence de la Sécurité d'État.",
+                aboutPara2: "Nous nous efforçons de dépasser les attentes de chaque client en offrant un service client exceptionnel, une flexibilité accrue et une valeur supérieure, optimisant ainsi les fonctionnalités du système et améliorant l'efficacité opérationnelle.",
+                feat1: "Réseau Gouvernemental Solide", feat2: "Connaissance Approfondie des Achats", feat3: "Exécution de Contrats Prouvée", feat4: "Pratiques Éthiques et Transparentes", feat5: "Partenariats Stratégiques à Long Terme", feat6: "Normes de Qualité Mondiales",
+                servicesLabel: "Nos Services", servicesTitle1: "Solutions Complètes ", servicesTitle2: "pour Répondre à Vos Besoins", servicesDesc: "Nous offrons une gamme complète de services spécialisés dans le secteur de la défense et de la sécurité",
+                svc1Title: "Conseil", svc1Desc: "Conseil sur les procédures d'achat gouvernementales et les processus de prise de décision.",
+                svc2Title: "Marketing et Développement Commercial", svc2Desc: "Stratégies marketing, développement commercial et analyse de marché.",
+                svc3Title: "Ressources Humaines", svc3Desc: "Fourniture de tous les besoins en RH, du recrutement à l'assurance et à l'hébergement.",
+                svc4Title: "Relations Gouvernementales", svc4Desc: "Services de suivi avec tous les organismes gouvernementaux, ministères et licences.",
+                svc5Title: "Transport", svc5Desc: "Transport personnalisé, location de véhicules, service de maintenance 24h/24.",
+                svc6Title: "Services de Voyage", svc6Desc: "Planification de vols, réservation de billets, services VIP aéroport.",
+                svc7Title: "Support Bureau et Logistique", svc7Desc: "Location de bureaux, installation, support informatique et communications.",
+                svc8Title: "Traduction", svc8Desc: "Traduction de manuels techniques et propositions avec précision terminologique.",
+                stat1: "Partenaires Stratégiques", stat2: "Projets Réalisés", stat3: "Clients Gouvernementaux", stat4: "Taux de Satisfaction",
+                projectsLabel: "Nos Projets", projectsTitle1: "Un Historique Prouvé ", projectsTitle2: "d'Exécution Réussie", projectsDesc: "Nous sommes fiers de nos projets réussis dans le secteur de la défense et de la sécurité",
+                proj1Title: "Pièces de Rechange et Support CLS pour Systèmes de Drones", proj1Desc: "Fourniture de pièces de rechange et support technique pour les systèmes de drones",
+                proj2Title: "Sécurisation de 91 Systèmes de Drones avec Plus de 270 Appareils", proj2Desc: "Fourniture et formation sur les systèmes de drones avancés",
+                proj3Title: "Équipement d'Entraînement Tactique pour les Forces Navales", proj3Desc: "Équipement d'entraînement spécialisé pour les opérations navales",
+                proj4Title: "Détecteurs de Métaux et d'Armes à l'Université de Najran", proj4Desc: "Systèmes de détection avancés pour la sécurité du campus",
+                proj5Title: "Portes d'Inspection pour la Défense Aérienne", proj5Desc: "Portes de sécurité avancées pour les sites sensibles",
+                proj6Title: "Équipements Tactiques de Protection pour les Forces Navales", proj6Desc: "Équipement de protection spécialisé pour les opérations militaires",
+                proj7Title: "Besoins de Patrouille pour la Garde Nationale", proj7Desc: "Équipement complet pour les opérations de patrouille",
+                proj8Title: "Dispositifs d'Inspection pour la Défense Aérienne", proj8Desc: "Dispositifs de détection avancés pour le personnel",
+                proj9Title: "Équipement de Sécurité pour la Défense Aérienne", proj9Desc: "Solutions de sécurité complètes pour les sites militaires",
+                partnersLabel: "Nos Partenaires", partnersTitle1: "Fiers de Nous Associer ", partnersTitle2: "aux Principales Entreprises Mondiales",
+                clientsLabel: "Nos Clients Gouvernementaux", clientsTitle1: "Au Service ", clientsTitle2: "des Principales Entités Gouvernementales", clientsDesc: "Au Royaume d'Arabie Saoudite",
+                client1: "Ministère de la Défense", client2: "Ministère de l'Intérieur", client3: "Ministère de la Garde Nationale", client4: "Présidence de la Garde Royale",
+                client5: "Ministère des Sports", client6: "Ministère de l'Éducation", client7: "Ministère de la Santé", client8: "Présidence de la Sécurité d'État",
+                contactLabel: "Contactez-Nous", contactTitle1: "Notre Équipe est Prête ", contactTitle2: "à Vous Aider à Atteindre Vos Objectifs",
+                contactInfoTitle: "Informations de Contact", contactAddress: "Adresse", contactAddressVal: "Riyad - Royaume d'Arabie Saoudite",
+                contactEmail: "Email", contactWebsite: "Site Web",
+                formName: "Nom Complet", formNamePh: "Entrez votre nom complet", formEmail: "Email", formEmailPh: "Entrez votre adresse email",
+                formSubject: "Sujet", formSubjectPh: "Sujet du message", formMessage: "Message", formMessagePh: "Écrivez votre message ici...", formSubmit: "Envoyer le Message",
+                footerDesc: "Établissement Maidan Defense - Votre partenaire de confiance dans le secteur de la défense et de la sécurité. Nous fournissons des solutions complètes et innovantes pour nos clients gouvernementaux et internationaux.",
+                footerQuickLinks: "Liens Rapides", footerHome: "Accueil", footerAbout: "À Propos", footerServices: "Services", footerProjects: "Projets",
+                footerOurServices: "Nos Services", footerSvc1: "Conseil", footerSvc2: "Marketing", footerSvc3: "Ressources Humaines", footerSvc4: "Support Logistique",
+                footerContactUs: "Contactez-Nous", footerLocation: "Riyad, Arabie Saoudite",
+                footerCopyright: "Tous Droits Réservés &copy; 2024 <span class='domain'>MAIDAN-DEFENSE.COM</span>"
+            }
+        };
+
+        let currentLang = 'ar';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+            const html = document.getElementById('htmlRoot');
+            const body = document.body;
+
+            html.setAttribute('lang', lang);
+            if (lang === 'ar') {
+                html.setAttribute('dir', 'rtl');
+                body.setAttribute('dir', 'rtl');
+            } else {
+                html.setAttribute('dir', 'ltr');
+                body.setAttribute('dir', 'ltr');
+            }
+
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+            });
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) {
+                    if (key === 'footerCopyright') {
+                        el.innerHTML = t[key];
+                    } else {
+                        el.textContent = t[key];
+                    }
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (t[key]) {
+                    el.setAttribute('placeholder', t[key]);
+                }
+            });
+
+            document.getElementById('pageTitle').textContent = t.pageTitle;
+
+            const btnAbout = document.querySelector('[data-i18n="btnAbout"]');
+            const btnContact = document.querySelector('[data-i18n="btnContact"]');
+            if (btnAbout) {
+                if (lang === 'ar') {
+                    btnAbout.innerHTML = '<i class="fas fa-arrow-left"></i> ' + t.btnAbout;
+                } else {
+                    btnAbout.innerHTML = t.btnAbout + ' <i class="fas fa-arrow-right"></i>';
+                }
+            }
+            if (btnContact) {
+                btnContact.innerHTML = '<i class="fas fa-envelope"></i> ' + t.btnContact;
+            }
+
+            const formSubmit = document.querySelector('[data-i18n="formSubmit"]');
+            if (formSubmit) {
+                formSubmit.innerHTML = '<i class="fas fa-paper-plane"></i> ' + t.formSubmit;
+            }
+
+            const footerLinks = ['footerHome', 'footerAbout', 'footerServices', 'footerProjects', 'footerSvc1', 'footerSvc2', 'footerSvc3', 'footerSvc4'];
+            footerLinks.forEach(key => {
+                const el = document.querySelector('[data-i18n="' + key + '"]');
+                if (el) {
+                    const icon = el.querySelector('i');
+                    if (icon) {
+                        el.innerHTML = '';
+                        el.appendChild(icon);
+                        el.appendChild(document.createTextNode(' ' + t[key]));
+                    }
+                }
+            });
+
+            const footerLocation = document.querySelector('[data-i18n="footerLocation"]');
+            if (footerLocation) {
+                const icon = footerLocation.querySelector('i');
+                if (icon) {
+                    footerLocation.innerHTML = '';
+                    footerLocation.appendChild(icon);
+                    footerLocation.appendChild(document.createTextNode(' ' + t.footerLocation));
+                }
+            }
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 2000);
+        });
+
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+            particle.style.width = (2 + Math.random() * 4) + 'px';
+            particle.style.height = particle.style.width;
+            particlesContainer.appendChild(particle);
+        }
+
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        document.querySelectorAll('.animate-on-scroll').forEach(el => { observer.observe(el); });
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        mobileMenuBtn.addEventListener('click', () => {
+            const msgs = { ar: 'القائمة الجانبية قيد التطوير', en: 'Mobile menu is under development', fr: 'Le menu mobile est en développement' };
+            alert(msgs[currentLang] || msgs['en']);
+        });
+
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const msgs = { ar: 'شكراً لتواصلك معنا! سنتواصل معك قريباً.', en: 'Thank you for contacting us! We will get back to you soon.', fr: 'Merci de nous contacter ! Nous vous répondrons bientôt.' };
+            alert(msgs[currentLang] || msgs['en']);
+        });
+    </script>
+</body>
+</html>
